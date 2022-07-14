@@ -3,17 +3,25 @@ package chapter30;
 public class Main {
     public static void main(String[] args) {
         ArrayList ar = new ArrayList();
+        ar.add(100);
+        ar.add(200);
+        ar.add(300);
+        ar.add(400);
 
-        for ( int i = 0; i < 100; i++ ) {
-            ar.add((i + 1) * 10);
-        }
+        ar.remove(2);
+        int value = ar.get(2);
+        System.out.println(value);
+        // 출력 : 400
 
-        int ar_size = ar.size(); // ar_size의 값은 100 이어야 합니다.
+        ar.remove(0);
+        value = ar.get(0);
+        System.out.println(value);
+        // 출력 : 200
 
-        for ( int i = 0; i < ar_size; i++ ) {
-            int value = ar.get(i);
-            System.out.println(value);
-        }
+        ar.add(78);
+        value = ar.get(2);
+        System.out.println(value);
+        // 출력 : 78
     }
 }
 class ArrayList {
@@ -43,5 +51,17 @@ class ArrayList {
 
     public int size() {
         return idx + 1;
+    }
+
+    public void remove(int index) {
+        // 삭제할 수 없는 인덱스 예외처리
+        if (index > idx) {
+            return;
+        }
+        // 한개씩 앞으로 당겨오고 마지막 인덱스 번호 1개 감소
+        for (int i = index + 1; i <= idx; i++) {
+            arr[i - 1] = arr[i];
+        }
+        idx--;
     }
 }
