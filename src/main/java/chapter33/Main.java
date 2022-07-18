@@ -58,7 +58,7 @@ class HashMap<K, V> {
     }
 
     // key로 value 조회
-    public Object get(K key) {
+    public V get(K key) {
         int idx = indexOfKey(key);
         // 키가 없으면 null 반환
         if (idx == -1) {
