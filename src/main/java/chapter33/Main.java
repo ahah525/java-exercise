@@ -7,9 +7,10 @@ public class Main {
 
         aMap.put(1, "안녕");
         aMap.put("A", false);
+        aMap.put("A", true);
 
         System.out.println(aMap.get("A"));
-        // 출력 : false
+        // 출력 : true
     }
 }
 
@@ -25,18 +26,26 @@ class HashMap {
     }
 
     public void put(Object key, Object value) {
-        keys[size] = key;
-        values[size] = value;
-        size++;
+        int idx = indexOfKey(key);
+
+        if (idx == -1) {
+            // 키가 없으면 새로 삽입
+            keys[size] = key;
+            values[size] = value;
+            size++;
+        } else {
+            // 키가 있으면 덮어쓰기
+            values[idx] = value;
+        }
     }
 
     public Object get(Object key) {
-        for (int i = 0; i < size; i++) {
-            if(keys[i].equals(key)) {
-                return values[i];
-            }
+        int idx = indexOfKey(key);
+        // 키가 없으면 null 반환
+        if (idx == -1) {
+            return null;
         }
-        return null;
+        return values[idx];
     }
 
     public boolean containsKey(Object key) {
@@ -45,5 +54,14 @@ class HashMap {
                 return true;
         }
         return false;
+    }
+
+    // 해당 key의 인덱스 반환
+    public int indexOfKey(Object key) {
+        for (int i = 0; i < size; i++) {
+            if(keys[i].equals(key))
+                return i;
+        }
+        return -1;
     }
 }
