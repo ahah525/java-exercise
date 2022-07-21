@@ -1,34 +1,55 @@
 package chapter40;
 
 /*
-문제 : Main 객체의 안녕이 Main클래스가 아닌 다른 클래스 객체에 의해 실행되도록 해주세요.
+문제 : 사람 객체의 `안녕`이 `button.click();`에 의해 실행되도록 해주세요.
+조건 : Button에는 `사람` 이라는 언급이 없어야 합니다.
 */
 class Main {
     public static void main(String[] args) {
-        Main aMain = new Main();
-
-        실행자 a실행자 = new 실행자();
-        a실행자.set리모콘(aMain);
-        a실행자.리모콘_작동();
+        Button button = new Button();
+        button.setListener(new 사람());
+        button.click();
+        button.setListener(new 강아지());
+        button.click();
     }
+}
+
+interface Listener {
+    public void listen(String msg);
+}
+
+class 사람 implements Listener {
 
     public void 안녕() {
-        System.out.println("Main::안녕!");
+        System.out.println("사람::안녕!");
+    }
+
+    @Override
+    public void listen(String msg) {
+        안녕();
     }
 }
 
-class 실행자 {
-    private Object a리모콘;
-
-    public void set리모콘(Object a리모콘) {
-        this.a리모콘 = a리모콘;
+class 강아지 implements Listener {
+    public void 안녕() {
+        System.out.println("강아지::안녕!");
     }
 
-    public void 리모콘_작동() {
-        // 수정가능지역 시작
-        if (a리모콘 instanceof Main) {
-            ((Main) a리모콘).안녕();
-        }
-        // 수정가능지역 끝
+    @Override
+    public void listen(String msg) {
+        안녕();
     }
 }
+
+// button에 관찰자
+class Button {
+    private Listener listener;
+    public void click() {
+        listener.listen("버튼 클릭됨!");
+    }
+
+    public void setListener(Listener listener) {
+        this.listener = listener;
+    }
+}
+
