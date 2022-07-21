@@ -1,64 +1,46 @@
 package chapter40;
 
-class Main {
+// 문제 : 아래가 실행되도록 해주세요.
+
+class Main implements OnClickListener {
     public static void main(String[] args) {
-        Button aButton = new Button();
-        aButton.setClickEventListener(new 고양이());
-        aButton.fireClick();
-        // 나(고양이)는 방금 버튼이 클릭되었다는 사실을 전달 받았습니다.
+        Main aMain = new Main();
+        View aButton = new Button(aMain);
 
-        aButton.setClickEventListener(new 개());
-        aButton.fireClick();
-        // 나(개)는 방금 버튼이 클릭되었다는 사실을 전달 받았습니다.
+        aButton.setOnClickListener(aMain);
+        aButton.fireClickEvent();
+        // 출력 : 버튼이 클릭되었습니다.
+        // 참고로 위 출력은 아래 onClick 메서드의 호출로 이뤄져야 합니다.
+    }
 
-        aButton.setClickEventListener(new 부엉이());
-        // 나(부엉이)는 방금 버튼이 클릭되었다는 사실을 전달 받았습니다.
-
-        aButton.fireClick();
+    @Override
+    public void onClick(View v) {
+        System.out.println("버튼이 클릭되었습니다.");
     }
 }
-interface Listener {
 
-    public void onClick();
+interface OnClickListener {
+    public void onClick(View v);
 }
-class Button {
-    Listener listener;
-    public void setClickEventListener(Listener listener) {
+
+interface View {
+   public void setOnClickListener(OnClickListener listener);
+   public void fireClickEvent();
+}
+
+class Button implements View {
+    OnClickListener listener;
+
+    public Button(OnClickListener listener) {
         this.listener = listener;
     }
 
-    public void fireClick() {
-        listener.onClick();
+    public void setOnClickListener(OnClickListener listener) {
+        this.listener = listener;
     }
-}
 
-class 고양이 implements Listener {
     @Override
-    public void onClick() {
-        clickResponse();
-    }
-
-    public void clickResponse() {
-        System.out.println("나(고양이)는 방금 버튼이 클릭되었다는 사실을 전달 받았습니다.");
-    }
-}
-class 개 implements Listener {
-    @Override
-    public void onClick() {
-        clickResponse();
-    }
-
-    public void clickResponse() {
-        System.out.println("나(개)는 방금 버튼이 클릭되었다는 사실을 전달 받았습니다.");
-    }
-}
-class 부엉이 implements Listener {
-    @Override
-    public void onClick() {
-        clickResponse();
-    }
-
-    public void clickResponse() {
-        System.out.println("나(부엉이)는 방금 버튼이 클릭되었다는 사실을 전달 받았습니다.");
+    public void fireClickEvent() {
+        listener.onClick(this);
     }
 }
