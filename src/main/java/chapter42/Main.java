@@ -21,6 +21,12 @@ public class Main {
             System.out.println("홍길동이 받은 메세지 : " + msg);
         });
         aButton.fireClickEvent();
+//        aButton.addOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(String msg) {
+//                System.out.println("홍길동이 받은 메세지 : " + msg);
+//            }
+//        });
 
         // 출력
 		/*
