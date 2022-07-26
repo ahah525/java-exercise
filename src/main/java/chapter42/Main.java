@@ -17,7 +17,9 @@ public class Main {
         // 뷰 : 대신 당신 해야할 일은, OnClickEventListen가 되어야 한다는 것 입나다.
         // 홍길동 : 그럴줄 알고 그것(OnClickEventListen) 구현했습니다.
 
-        aButton.addOnClickListener(new 홍길동());
+        aButton.addOnClickListener(msg -> {
+            System.out.println("홍길동이 받은 메세지 : " + msg);
+        });
         aButton.fireClickEvent();
 
         // 출력
@@ -26,7 +28,9 @@ public class Main {
 		홍길동이 받은 메세지 : 뷰가 클릭됨
 		*/
 
-        aButton.addOnClickListener(new 홍길순());
+        aButton.addOnClickListener(msg -> {
+                System.out.println("홍길순이 받은 메세지 : " + msg);
+        });
         aButton.fireClickEvent();
         // 출력
 		/*
@@ -38,18 +42,20 @@ public class Main {
 }
 class View {
     /* 수정가능지역시작 */
-    private List<OnClickListener> listeners;;
+    private List<OnClickListener> listeners;;   // 구독자 리스트
 
     public View() {
         listeners = new ArrayList<>();
     }
 
     public void addOnClickListener(OnClickListener onClickListener) {
+        // 구독자 등록
         listeners.add(onClickListener);
     }
 
     public void fireClickEvent() {
         System.out.println("뷰가 클릭되었습니다.");
+        // 구독자 알림
         for(OnClickListener onClickListener : listeners)
             onClickListener.onClick("뷰가 클릭됨");
     }
@@ -62,22 +68,4 @@ class Button extends View {
 
 interface OnClickListener {
     public void onClick(String msg);
-}
-
-class 홍길동 implements OnClickListener {
-    @Override
-    public void onClick(String msg) {
-        System.out.println("홍길동이 받은 메세지 : " + msg);
-    }
-
-    public void 숨쉬다() {
-        System.out.println("홍길동 : 숨쉬다.");
-    }
-}
-
-class 홍길순 implements OnClickListener {
-    @Override
-    public void onClick(String msg) {
-        System.out.println("홍길순이 받은 메세지 : " + msg);
-    }
 }
