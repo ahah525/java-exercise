@@ -17,16 +17,17 @@ public class Main {
         // 뷰 : 대신 당신 해야할 일은, OnClickEventListen가 되어야 한다는 것 입나다.
         // 홍길동 : 그럴줄 알고 그것(OnClickEventListen) 구현했습니다.
 
-        aButton.addOnClickListener(msg -> {
-            System.out.println("홍길동이 받은 메세지 : " + msg);
+        // 메서드 2개면 람다로 변경X
+        aButton.addOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(String msg) {
+                System.out.println("홍길동이 받은 메세지 : " + msg);
+            }
+            public void 숨쉬다() {
+                System.out.println("홍길동 : 숨쉬다.");
+            }
         });
         aButton.fireClickEvent();
-//        aButton.addOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(String msg) {
-//                System.out.println("홍길동이 받은 메세지 : " + msg);
-//            }
-//        });
 
         // 출력
 		/*
